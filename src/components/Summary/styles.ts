@@ -6,7 +6,7 @@ export const Wrapper = styled.main`
 
 export const Content = styled.div`
 
-    /* width: 1120px; */
+    width: 1120px;
 
     display: flex;
     flex-direction: row;

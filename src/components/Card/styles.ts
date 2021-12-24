@@ -1,17 +1,30 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { CardProps } from '.';
 
-export const Wrapper = styled.main`
+type CardStyles = Pick<CardProps, 'cardType'>
+
+export const wrapperModifiers = {
+  primary: css`
+    background-color: var(--shape);
+  `,
+  secondary: css`
+    background-color: var(--green);
+    color: var(--shape);
+  `
+}
+
+export const Wrapper = styled.main<CardStyles>`
+    ${({cardType}) => css`
     display: flex;
     flex-direction: column;
     align-items: start;
-
+    border-radius: 5px;
     width: 352px;
     height: 136px;
-
     padding: 2rem;
 
-    background: var(--shape);
-
+    ${cardType && wrapperModifiers[cardType]}
+    `}
 `;
 
 export const Header = styled.div`

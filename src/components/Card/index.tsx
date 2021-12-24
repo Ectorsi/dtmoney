@@ -1,27 +1,20 @@
-import entradas from '../../assets/income.svg';
-import saidas from '../../assets/outcome.svg';
-import total from '../../assets/total.svg';
-
 import * as S from './styles';
 
-type CardProps = {
+export type CardProps = {
     cardDescription: 'Entradas' | 'Saidas' | 'Total';
+    cardType?: 'primary' | 'secondary';
+    icon: string;
+    value: number;
 }
 
-export const Card = ({ cardDescription }: CardProps) => {
-    const entrada = cardDescription === 'Entradas' && <img src={entradas} alt="Entradas" />;
-    const saida = cardDescription === 'Saidas' && <img src={saidas} alt="Saidas" />;
-    const Stotal = cardDescription === 'Total' && <img src={total} alt="Total" />;
-
+export const Card = ({ cardDescription, cardType = 'primary', icon, value }: CardProps) => {
     return (
-        <S.Wrapper>
+      <S.Wrapper cardType={cardType} >
             <S.Header>
                 {cardDescription}
-                {!!entrada && entrada}
-                {!!saida && saida}
-                {!!Stotal && Stotal}
+                {icon && <img src={icon} alt="Entradas" />}
             </S.Header>
-            <S.Value>17.000,00</S.Value>
+          <S.Value>{value}</S.Value>
         </S.Wrapper>
     );
 }
