@@ -1,12 +1,16 @@
 import logo from '../../assets/logo.svg';
 import * as S from './styles';
 
-export const Header = () => {
+type HeaderProps = {
+    onOpenNewTransactionModal: () => void;
+}
+
+export const Header = ({onOpenNewTransactionModal }: HeaderProps) => {
     return (
         <S.Wrapper>
             <S.Content>
                 <S.Logo src={logo} alt="dt money" />
-                <S.Button>
+                <S.Button onClick={onOpenNewTransactionModal} >
                     Nova Transação
                 </S.Button>
             </S.Content>
