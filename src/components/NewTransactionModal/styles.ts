@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {darken} from 'polished';
 
 export const Container = styled.form`
     h2 {
@@ -13,7 +14,7 @@ export const Container = styled.form`
         height: 4rem;
         border-radius: 0.25rem;
 
-        border: 1px solid #d7d7d7;
+        border: 1px solid var(--general-border);
         background: #e7e9ee;
 
         font-weight: 400;
@@ -46,5 +47,43 @@ export const Container = styled.form`
             filter: brightness(0.9);
         }
     }
+`;
 
-    `;
+export const TransectionTypeContainer = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+
+    button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 100%;
+        max-width: 236px;
+        height: 4rem;
+
+        background-color: transparent;
+        border:  1.5px solid var(--general-border);
+        border-radius: 0.25rem;
+        margin: 1rem 0;
+
+        transition: border-color 0.1s;
+
+        &:hover {
+            border-color: ${darken(0.1, '#D7D7D7')};
+        }
+
+        img {
+            width: 20px;
+            height: 20px;
+        }
+
+        span {
+            display: inline-block;
+            margin-left: 1rem;
+            font-size: 1rem;
+            color: var(--text-title);
+        }
+    }
+`;

@@ -1,6 +1,8 @@
 import Modal from "react-modal";
 import * as S from './styles';
 import closeImg from '../../assets/close.svg'
+import incomeImg from  '../../assets/income.svg';
+import outcomeImg from  '../../assets/outcome.svg';
 
 Modal.setAppElement('#root'); // Para questões de acessibilidade usa-se isso para o modal
 
@@ -28,6 +30,17 @@ export const NewTransactionModal = ({isOpen, onRequestClose }: NewTransactionMod
                 <input 
                     placeholder="Valor"
                 />
+
+                <S.TransectionTypeContainer>
+                    <button type="button" onClick={onRequestClose}>
+                        <img src={incomeImg} alt="Entrada" />
+                        <span>Entrada</span>
+                    </button>
+                    <button type="button" onClick={onRequestClose}>
+                        <img src={outcomeImg} alt="Saída" />
+                        <span>Saída</span>
+                    </button>
+                </S.TransectionTypeContainer>
                 <input 
                     placeholder="Categoria"
                 />

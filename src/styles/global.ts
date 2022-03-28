@@ -16,6 +16,8 @@ export const GlobalStyle = createGlobalStyle`
 
         --background: #F0F2F5;
         --shape: #FFFFFF;
+
+        --general-border: #d7d7d7;
     }
 
     * {
