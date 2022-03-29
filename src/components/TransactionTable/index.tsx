@@ -22,6 +22,19 @@ export const TransactionTable = () => {
 
     }, []);
 
+    const formatToCurrency = (amount: number) => {
+        return new Intl.NumberFormat('pt-BR', {  //Intl é uma lib nativa para formataçao de valores, como moeda e timezone
+            style: 'currency',
+            currency: 'BRL'
+        }).format(amount)
+    }
+
+    const formatDate = (date: string) => {
+        return new Intl.DateTimeFormat('pt-BR').format(
+            new Date(date)
+        )
+    }
+
     return (
         <S.Wrapper>
             <S.Table>
@@ -42,10 +55,10 @@ export const TransactionTable = () => {
                                 <S.Td 
                                 className={type}
                                 >
-                                    R$ {type === 'withdraw' ? `- ${amount.toFixed(2)}` : amount.toFixed(2)}
+                                    {type === 'withdraw' ? `- ${formatToCurrency(amount)}` : formatToCurrency(amount)}
                                 </S.Td>
                                 <S.Td>{category}</S.Td>
-                                <S.Td>{createdAt}</S.Td>
+                                <S.Td>{formatDate(createdAt)}</S.Td>
                             </S.Tr>
                         )
                     })}
