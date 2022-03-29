@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import {darken} from 'polished';
+import styled, { css } from "styled-components";
+import { darken, transparentize } from 'polished';
 
 export const Container = styled.form`
     h2 {
@@ -53,8 +53,22 @@ export const TransectionTypeContainer = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0.5rem;
+`;
 
-    button {
+type RadioBoxProps = {
+    isActive: boolean;
+    activeColor: 'green' | 'red';
+}
+
+const colors = {
+    green: '#33CC95',
+    red: '#E52E4D'
+}
+
+export const RadioBox = styled.button`
+
+    ${({ isActive, activeColor }: RadioBoxProps) => css`
+        
         display: flex;
         align-items: center;
         justify-content: center;
@@ -63,7 +77,9 @@ export const TransectionTypeContainer = styled.div`
         max-width: 236px;
         height: 4rem;
 
-        background-color: transparent;
+        background-color: ${(isActive 
+        ? transparentize(0.9, colors[activeColor]) 
+        : 'transparent')};
         border:  1.5px solid var(--general-border);
         border-radius: 0.25rem;
         margin: 1rem 0;
@@ -85,5 +101,5 @@ export const TransectionTypeContainer = styled.div`
             font-size: 1rem;
             color: var(--text-title);
         }
-    }
+    `}
 `;
