@@ -1,32 +1,15 @@
-import { useEffect, useState } from 'react';
-import { api } from '../../services/api';
+import { useTransactions } from '../../hooks/useTransactions';
 import * as S from './styles';
-
-type Transaction = {
-    id: number;
-    title: string;
-    value: number;
-    type: string;
-    category: string;
-    amount: number;
-    createdAt: string;
-}
 
 export const TransactionTable = () => {
 
-    const [transactions, setTransactions] = useState<Transaction[]>([]);
+    const { transactions } = useTransactions();
 
-    useEffect(() => {
-        api.get('/transactions')
-        .then(response => setTransactions(response.data.transactions))
-
-    }, []);
-
-    const formatToCurrency = (amount: number) => {
+    const formatToCurrency = (value: number) => {
         return new Intl.NumberFormat('pt-BR', {  //Intl é uma lib nativa para formataçao de valores, como moeda e timezone
             style: 'currency',
             currency: 'BRL'
-        }).format(amount)
+        }).format(value)
     }
 
     const formatDate = (date: string) => {
@@ -48,14 +31,14 @@ export const TransactionTable = () => {
                 </S.Thead>
                 <S.Tbody>
                     {transactions.map(transaction => {
-                        const {id, title, amount, category, createdAt, type} = transaction;
+                        const { id, title, amount, category, createdAt, transactionType} = transaction;
                         return (
                             <S.Tr key={id}>
                                 <S.Td>{title}</S.Td>
                                 <S.Td 
-                                className={type}
+                                className={transactionType}
                                 >
-                                    {type === 'withdraw' ? `- ${formatToCurrency(amount)}` : formatToCurrency(amount)}
+                                    {transactionType === 'withdraw' ? `- ${formatToCurrency(amount)}` : formatToCurrency(amount)}
                                 </S.Td>
                                 <S.Td>{category}</S.Td>
                                 <S.Td>{formatDate(createdAt)}</S.Td>
@@ -66,4 +49,4 @@ export const TransactionTable = () => {
             </S.Table>
         </S.Wrapper>
     );
-}
+};

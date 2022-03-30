@@ -4,7 +4,7 @@ export type CardProps = {
     cardDescription: 'Entradas' | 'Saidas' | 'Total';
     cardType?: 'primary' | 'secondary';
     icon: string;
-    value: number;
+    value: number | string;
 }
 
 export const Card = ({ cardDescription, cardType = 'primary', icon, value }: CardProps) => {

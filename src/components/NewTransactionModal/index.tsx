@@ -4,7 +4,7 @@ import closeImg from '../../assets/close.svg'
 import incomeImg from  '../../assets/income.svg';
 import outcomeImg from  '../../assets/outcome.svg';
 import { FormEvent, useState } from "react";
-import { api } from "../../services/api";
+import { useTransactions } from "../../hooks/useTransactions";
 
 Modal.setAppElement('#root'); // Para questões de acessibilidade usa-se isso para o modal
 
@@ -15,25 +15,27 @@ type NewTransactionModalProps = {
 
 export const NewTransactionModal = ({isOpen, onRequestClose }: NewTransactionModalProps) => {
 
+    const { createTransaction } = useTransactions();
+
     const [transactionType, setTransactionType] = useState('deposit');
     const [title, setTitle] = useState('');
     const [category, setCategory] = useState('');
-    const [value, setValue] = useState(0);
+    const [amount, setAmount] = useState(0);
 
-    const handleCreateNewTransaction = (event: FormEvent) => {
+    const handleCreateNewTransaction = async (event: FormEvent) => {
         event.preventDefault();
 
-        const data = {
+       await createTransaction({
             title,
-            value,
+            amount,
             category,
-            transactionType
-        }
+            transactionType,
+        });
 
-        api.post('/transactions', data);
         setTitle('');
         setCategory('');
-        setValue(0)
+        setAmount(0)
+        onRequestClose();
     };
 
     return (
@@ -55,8 +57,8 @@ export const NewTransactionModal = ({isOpen, onRequestClose }: NewTransactionMod
                 />
                 <input 
                     placeholder="Valor"
-                    value={value}
-                    onChange={event => setValue(Number(event.target.value))}
+                    value={amount}
+                    onChange={event => setAmount(Number(event.target.value))}
                 />
 
                 <S.TransectionTypeContainer>
@@ -71,8 +73,8 @@ export const NewTransactionModal = ({isOpen, onRequestClose }: NewTransactionMod
                     </S.RadioBox>
                     <S.RadioBox 
                     type="button" 
-                    onClick={() => setTransactionType('withdrawal')}
-                    isActive={transactionType === 'withdrawal'}
+                    onClick={() => setTransactionType('withdraw')}
+                    isActive={transactionType === 'withdraw'}
                     activeColor="red"
                     >
                         <img src={outcomeImg} alt="Saída" />
